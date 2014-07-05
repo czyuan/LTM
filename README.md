@@ -15,9 +15,21 @@ If you have any question or bug report, please send it to Zhiyuan (Brett) Chen (
 There are 2 ways to run the program:
 
 1. Import the directory into Eclipse (__recommended__).
-2. Use [Maven](http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
-  1.  Build the package.
-```
-mvn clean package
-```
 
+  _If you get the exception Java.Lang.OutOfMemoryError, please increase the Java heap memory for Eclipse: http://www.mkyong.com/eclipse/eclipse-java-lang-outofmemoryerror-java-heap-space/._
+  
+2. Use [Maven](http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
+
+  a. Build the package.
+  ```
+  mvn clean package
+  ```
+  b. Increase the Java heap memory for Maven.
+  ```
+  export MAVEN_OPTS=-Xmx1024m
+  ```
+  c. Run the program.
+  ```
+  mvn exec:java -Dexec.mainClass="launch.MainEntry"
+  ```
+  
