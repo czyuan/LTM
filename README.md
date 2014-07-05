@@ -11,12 +11,14 @@ If you have any question or bug report, please send it to Zhiyuan (Brett) Chen (
 - [Quick Start](#quickstart)
 - [Commandline Arguments](#commandlinearguments)
 - [Input and Output](#inputandoutput)
-- [](#inputandoutput)
+- [Efficiency](#efficiency)
 
 <a name="quickstart"/>
 ## Quick Start
 
-2 quick start options are available:
+First, Clone the repo: `git clone https://github.com/czyuan/LTM.git`.
+
+Then, 2 quick start options are available:
 
 1. Import the directory into Eclipse (__recommended__).
 
@@ -55,7 +57,7 @@ The input directory should contain domain files. For each domain, there should b
 2. domain.vocab: mapping from word id (starting from 0) to word.
 
 ### Output
-The output directory contains topic model results for each learning iteration. LearningIteration 0 is always LDA, i.e., without any knowledge. LearningIteration i with i > 0 is the LTM model. The knowledge used for LearningIteration i is extracted from LearningIteration i - 1, except LearningIteration 0 which is LDA.
+The output directory contains topic model results for each learning iteration (different from Gibbs sampling iteration, see [the paper](http://www.cs.uic.edu/~zchen/papers/ICML2014-Zhiyuan(Brett)Chen.pdf) for details). LearningIteration 0 is always LDA, i.e., without any knowledge. LearningIteration i with i > 0 is the LTM model. The knowledge used for LearningIteration i is extracted from LearningIteration i - 1, except LearningIteration 0 which is LDA.
 
 Under each learning iteration folder and sub-folder "DomainModels", there are a list of domain folders where each domain folder contains topic model results for each domain. Under each domain folder, there are 6 files (can be opened by text editors):
 
@@ -65,6 +67,14 @@ Under each learning iteration folder and sub-folder "DomainModels", there are a 
 4. domain.twdist: topic-word distribution
 5. domain.twords: top words under each topic. The columns are separated by '\t' where each column corresponds to each topic.
 6. domain.vocab: mapping from word id (starting from 0) to word.
+
+<a name="efficiency"/>
+## Efficiency
+The program and parameters are set to achieve the best performance in terms of topic coherence quality, instead of efficiency. There are several ways to improve efficiency (from the simplest to the hardest).
+
+1. Increase the number of threads in the program (specified by -nthreads). The topic models are execuated in parallel in each domain using multithreading.
+2. Reduce the frequency of updating knowledge in Gibbs sampling (i.e., knowledgeUpdatelag in the file "/model/ModelParameters.java"). The default setting is 1, meaning the knowledge is updated in each Gibbs sampling iteration. Setting this value to any number from 10 to 50 will greatly reduce the execution time while slightly deteriorating the topic quality.
+3. Use a better implementation for Apriori algorithm or use faster frequent itemset algorithm such as FP-growth.
 
 
 
