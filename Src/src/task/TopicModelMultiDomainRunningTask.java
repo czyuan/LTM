@@ -64,13 +64,6 @@ public class TopicModelMultiDomainRunningTask {
 	 * 
 	 * The knowledge used for LearningIteration i is extracted from
 	 * LearningIteration i - 1, except LearningIteration 0 which is LDA.
-	 * 
-	 * In each LearningIteration, we create a folder for it. Inside folder,
-	 * there are 2 sub-folders (DomainKnowledge, DomainModels).
-	 * 
-	 * DomainKnowledge: contains the knowledge to be used for each domain.
-	 * 
-	 * DomainModels: the topic model for each domain.
 	 */
 	private void run(ArrayList<Corpus> corpora, int nTopics, String modelName,
 			String outputRootDirectory) {
