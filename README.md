@@ -8,9 +8,10 @@ If you use this package, please cite the paper: __Zhiyuan Chen and Bing Liu. Top
 If you have any question or bug report, please send it to Zhiyuan (Brett) Chen (czyuanacm@gmail.com).
 
 ## Table of Contents
-- [Getting Started](#gettingstarted)
-- [Commandline Arguments](#commandlinearguments)
-- [## Inputs and Outputs](#inputsandoutputs)
+- [Table of Contents Generator](#table-of-contents-generator)
+  - [Getting Started](#gettingstarted)
+  - [Commandline Arguments](#commandlinearguments)
+  - [## Inputs and Outputs](#inputsandoutputs)
 
 ## Getting Started
 
