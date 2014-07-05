@@ -13,6 +13,7 @@ If you have any question or bug report, please send it to Zhiyuan (Brett) Chen (
   - [Commandline Arguments](#commandlinearguments)
   - [## Inputs and Outputs](#inputsandoutputs)
 
+<a name="gettingstarted"/>
 ## Getting Started
 
 There are 2 ways to run the program:
