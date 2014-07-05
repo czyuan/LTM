@@ -214,7 +214,7 @@ public class LTM extends TopicModel {
 
 			if (i >= param.nBurnin) {
 				if (i == param.nBurnin
-						|| i % param.knowledgeUpdatelag_ICML2014 == 0) {
+						|| i % param.knowledgeUpdatelag == 0) {
 					// Extract the knowledge and update the urn matrix.
 					// Compute the instance values of distributions.
 					computeTopicWordDistribution(-1);

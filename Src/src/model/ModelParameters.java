@@ -61,7 +61,7 @@ public class ModelParameters {
 	// ------------------------------------------------------------------------
 	// The frequency of updating knowledge. 1 gets the best results while larger
 	// value runs faster.
-	public int knowledgeUpdatelag_ICML2014 = 1;
+	public int knowledgeUpdatelag = 1;
 	// Number of top words used to extract knowledge.
 	public int numberOfTopWordsUsedForKnowledgeEstimation = 15;
 	// Minimum support for frequent itemset mining.
