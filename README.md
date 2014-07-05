@@ -8,7 +8,8 @@ If you use this package, please cite the paper: __Zhiyuan Chen and Bing Liu. Top
 If you have any question or bug report, please send it to Zhiyuan (Brett) Chen (czyuanacm@gmail.com).
 
 ## Table of Contents
-- [ Getting Started](#gettingstarted)
+- [Getting Started](#gettingstarted)
+- [Commandline Arguments](#commandlinearguments)
 
 ## Getting Started
 
@@ -33,3 +34,16 @@ There are 2 ways to run the program:
   mvn exec:java -Dexec.mainClass="launch.MainEntry"
   ```
   
+## Commandline Arguments
+The commandline arguments are stored in global.CmdOption. If no argument is provided, the program uses the default arguments. There are several arguments that are subject to change:
+
+1. -i: the path of input domains directory.
+2. -o: the path of output model directory.
+3. -nthreads: the number of threads used in the program. The program runs in parallel supporting multithreading.
+4. -nTopics: the number of topics used in Topic Model for each domain.
+
+
+
+
+
+
