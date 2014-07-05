@@ -79,8 +79,8 @@ The program and parameters are set to achieve the best performance in terms of t
 
 <a name="contactinformation"/>
 ## Contact Information
-Author: Zhiyuan (Brett) Chen
-Affiliation: University of Illinois at Chicago
-Research Area: Text Mining, Machine Learning, Statistical Natural Language Processing, and Data Mining
-Email: czyuanacm@gmail.com
-Homepage: http://www.cs.uic.edu/~zchen/
+* Author: Zhiyuan (Brett) Chen
+* Affiliation: University of Illinois at Chicago
+* Research Area: Text Mining, Machine Learning, Statistical Natural Language Processing, and Data Mining
+* Email: czyuanacm@gmail.com
+* Homepage: http://www.cs.uic.edu/~zchen/
