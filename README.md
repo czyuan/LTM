@@ -37,10 +37,12 @@ There are 2 ways to run the program:
 ## Commandline Arguments
 The commandline arguments are stored in global.CmdOption. If no argument is provided, the program uses the default arguments. There are several arguments that are subject to change:
 
-1. -i: the path of input domains directory.
-2. -o: the path of output model directory.
-3. -nthreads: the number of threads used in the program. The program runs in parallel supporting multithreading.
-4. -nTopics: the number of topics used in Topic Model for each domain.
+-i: the path of input domains directory.
+
+-o: the path of output model directory.
+
+-nthreads: the number of threads used in the program. The program runs in parallel supporting multithreading.
+-nTopics: the number of topics used in Topic Model for each domain.
 
 
 
