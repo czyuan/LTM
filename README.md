@@ -1,21 +1,22 @@
 LTM
 ===
 
-LTM (Lifelong Topic Model) is an open-source Java package implementing the algorithm proposed in the paper (Chen and Liu, ICML 2014). For more details, please refer to [this paper](http://www.cs.uic.edu/~zchen/papers/ICML2014-Zhiyuan(Brett)Chen.pdf).
+LTM (Lifelong Topic Model) is an open-source Java package implementing the algorithm proposed in the paper (Chen and Liu, ICML 2014), created by [Zhiyuan (Brett) Chen](http://www.cs.uic.edu/~zchen/). For more details, please refer to [this paper](http://www.cs.uic.edu/~zchen/papers/ICML2014-Zhiyuan(Brett)Chen.pdf).
 
 If you use this package, please cite the paper: __Zhiyuan Chen and Bing Liu. Topic Modeling using Topics from Many Domains, Lifelong Learning and Big Data. In Proceedings of _ICML 2014_, pages 703-711__.
 
 If you have any question or bug report, please send it to Zhiyuan (Brett) Chen (czyuanacm@gmail.com).
 
 ## Table of Contents
-- [Getting Started](#gettingstarted)
+- [Quick Start](#quickstart)
 - [Commandline Arguments](#commandlinearguments)
 - [Input and Output](#inputandoutput)
+- [](#inputandoutput)
 
-<a name="gettingstarted"/>
-## Getting Started
+<a name="quickstart"/>
+## Quick Start
 
-There are 2 ways to run the program:
+2 quick start options are available:
 
 1. Import the directory into Eclipse (__recommended__).
 
@@ -48,7 +49,7 @@ The commandline arguments are stored in global.CmdOption. If no argument is prov
 <a name="inputandoutput"/>
 ## Input and Output
 ### Input
-The input directory should contain domain files. For each domain, there should be 2 files:
+The input directory should contain domain files. For each domain, there should be 2 files (can be opened by text editors):
 
 1. domain.docs: each line contains a list of word ids, representing a document.
 2. domain.vocab: mapping from word id (starting from 0) to word.
@@ -56,7 +57,7 @@ The input directory should contain domain files. For each domain, there should b
 ### Output
 The output directory contains topic model results for each learning iteration. LearningIteration 0 is always LDA, i.e., without any knowledge. LearningIteration i with i > 0 is the LTM model. The knowledge used for LearningIteration i is extracted from LearningIteration i - 1, except LearningIteration 0 which is LDA.
 
-Under each learning iteration folder and sub-folder "DomainModels", there are a list of domain folders where each domain folder contains topic model results for each domain. Under each domain folder, there are 6 files:
+Under each learning iteration folder and sub-folder "DomainModels", there are a list of domain folders where each domain folder contains topic model results for each domain. Under each domain folder, there are 6 files (can be opened by text editors):
 
 1. domain.docs: each line contains a list of word ids, representing a document.
 2. domain.param: parameter settings.
