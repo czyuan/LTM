@@ -8,10 +8,9 @@ If you use this package, please cite the paper: __Zhiyuan Chen and Bing Liu. Top
 If you have any question or bug report, please send it to Zhiyuan (Brett) Chen (czyuanacm@gmail.com).
 
 ## Table of Contents
-- [Table of Contents Generator](#table-of-contents-generator)
-  - [Getting Started](#gettingstarted)
-  - [Commandline Arguments](#commandlinearguments)
-  - [## Inputs and Outputs](#inputsandoutputs)
+- [Getting Started](#gettingstarted)
+- [Commandline Arguments](#commandlinearguments)
+- [Input and Output](#inputandoutput)
 
 <a name="gettingstarted"/>
 ## Getting Started
@@ -36,7 +35,8 @@ There are 2 ways to run the program:
   ```
   mvn exec:java -Dexec.mainClass="launch.MainEntry"
   ```
-  
+
+<a name="commandlinearguments"/>
 ## Commandline Arguments
 The commandline arguments are stored in global.CmdOption. If no argument is provided, the program uses the default arguments. There are several arguments that are subject to change:
 
@@ -45,8 +45,25 @@ The commandline arguments are stored in global.CmdOption. If no argument is prov
 3. -nthreads: the number of threads used in the program. The program runs in parallel supporting multithreading.
 4. -nTopics: the number of topics used in Topic Model for each domain.
 
-## Inputs and Outputs
+<a name="inputandoutput"/>
+## Input and Output
+### Input
+The input directory should contain domain files. For each domain, there should be 2 files:
 
+1. domain.docs: each line contains a list of word ids, representing a document.
+2. domain.vocab: mapping from word id (starting from 0) to word.
+
+### Output
+The output directory contains topic model results for each learning iteration. LearningIteration 0 is always LDA, i.e., without any knowledge. LearningIteration i with i > 0 is the LTM model. The knowledge used for LearningIteration i is extracted from LearningIteration i - 1, except LearningIteration 0 which is LDA.
+
+Under each learning iteration folder and sub-folder "DomainModels", there are a list of domain folders where each domain folder contains topic model results for each domain. Under each domain folder, there are 6 files:
+
+1. domain.docs: each line contains a list of word ids, representing a document.
+2. domain.param: parameter settings.
+3. domain.tassign: topic assignment for each word in each document.
+4. domain.twdist: topic-word distribution
+5. domain.twords: top words under each topic. The columns are separated by '\t' where each column corresponds to each topic.
+6. domain.vocab: mapping from word id (starting from 0) to word.
 
 
 
