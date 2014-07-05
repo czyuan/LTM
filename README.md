@@ -19,9 +19,7 @@ If you have any question or bug report, please send it to Zhiyuan (Brett) Chen (
 
 First, Clone the repo: `git clone https://github.com/czyuan/LTM.git`.
 
-Then, change the current working directory: `cd LTM`.
-
-Last, 2 quick start options are available:
+Then, 2 quick start options are available:
 
 1. Import the directory into Eclipse (__recommended__).
 
@@ -29,15 +27,19 @@ Last, 2 quick start options are available:
   
 2. Use [Maven](http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
 
-  a. Build the package.
+  a. Then, change the current working directory.
+  ```
+  cd LTM/Src
+  ```
+  b. Build the package.
   ```
   mvn clean package
   ```
-  b. Increase the Java heap memory for Maven.
+  c. Increase the Java heap memory for Maven.
   ```
   export MAVEN_OPTS=-Xmx1024m
   ```
-  c. Run the program.
+  d. Run the program.
   ```
   mvn exec:java -Dexec.mainClass="launch.MainEntry"
   ```
