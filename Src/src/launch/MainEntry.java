@@ -7,6 +7,8 @@
  * Zhiyuan Chen and Bing Liu. Topic Modeling using Topics from Many Domains, Lifelong Learning and Big Data.
  * In ICML 2014, pages 703-711.
  * 
+ * The latest version of this program can be found in: https://github.com/czyuan/LTM.git.
+ * 
  * @author Zhiyuan (Brett) Chen
  * @email czyuanacm@gmail.com
  * 
