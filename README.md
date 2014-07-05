@@ -19,7 +19,9 @@ If you have any question or bug report, please send it to Zhiyuan (Brett) Chen (
 
 First, Clone the repo: `git clone https://github.com/czyuan/LTM.git`.
 
-Then, 2 quick start options are available:
+Then, change the current working directory: `cd LTM`.
+
+Last, 2 quick start options are available:
 
 1. Import the directory into Eclipse (__recommended__).
 
