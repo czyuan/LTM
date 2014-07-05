@@ -27,7 +27,7 @@ Then, 2 quick start options are available:
   
 2. Use [Maven](http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
 
-  a. Then, change the current working directory.
+  a. Then, change the current working directory to Src.
   ```
   cd LTM/Src
   ```
