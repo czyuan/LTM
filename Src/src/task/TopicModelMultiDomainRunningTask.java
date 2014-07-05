@@ -52,7 +52,7 @@ public class TopicModelMultiDomainRunningTask {
 				cmdOption.suffixInputCorporeaDocs,
 				cmdOption.suffixInputCorporeaVocab);
 
-		run(corpora, cmdOption.nTopicsList, cmdOption.modelName,
+		run(corpora, cmdOption.nTopics, cmdOption.modelName,
 				cmdOption.outputRootDirectory);
 	}
 

@@ -41,7 +41,7 @@ public class CmdOption {
 	// ------------------------------------------------------------------------
 
 	@Option(name = "-ntopics", usage = "Specify the number of topics")
-	public int nTopicsList = 15;
+	public int nTopics = 15;
 
 	@Option(name = "-burnin", usage = "Specify the number of iterations for burn-in period")
 	public int nBurnin = 200;
@@ -80,7 +80,7 @@ public class CmdOption {
 		cmdOption2.nLearningIterations = this.nLearningIterations;
 		cmdOption2.nthreads = this.nthreads;
 		cmdOption2.includeCurrentDomainAsKnowledgeExtraction = this.includeCurrentDomainAsKnowledgeExtraction;
-		cmdOption2.nTopicsList = this.nTopicsList;
+		cmdOption2.nTopics = this.nTopics;
 		cmdOption2.nBurnin = this.nBurnin;
 		cmdOption2.nIterations = this.nIterations;
 		cmdOption2.sampleLag = this.sampleLag;
