@@ -5,7 +5,7 @@
   <artifactId>LTM</artifactId>
   <version>0.1</version>
   <description>Topic Modeling using Topics from Many Domains, Lifelong Learning and Big Data</description>
-  <url></url>
+  <url>https://github.com/czyuan/LTM.git</url>
   
   <licenses>
     <license>
