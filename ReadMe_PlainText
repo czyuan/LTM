@@ -7,13 +7,13 @@ If you use this package, please cite the paper: Zhiyuan Chen and Bing Liu. Topic
 If you have any question or bug report, please send it to Zhiyuan (Brett) Chen (czyuanacm@gmail.com).
 
 Table of Contents
-Quick Start
-Commandline Arguments
-Input and Output
-Efficiency
-Contact Information
+1. Quick Start
+2. Commandline Arguments
+3. Input and Output
+4. Efficiency
+5. Contact Information
 
-Quick Start
+1. Quick Start
 
 First, Clone the repo: git clone https://github.com/czyuan/LTM.git.
 
@@ -41,7 +41,7 @@ d. Run the program.
 
 mvn exec:java -Dexec.mainClass="launch.MainEntry"
 
-Commandline Arguments
+2. Commandline Arguments
 
 The commandline arguments are stored in the file "global/CmdOption.java". If no argument is provided, the program uses the default arguments. There are several arguments that are subject to change:
 
@@ -50,7 +50,7 @@ The commandline arguments are stored in the file "global/CmdOption.java". If no 
 -nthreads: the number of threads used in the program. The program runs in parallel supporting multithreading.
 -nTopics: the number of topics used in Topic Model for each domain.
 
-Input and Output
+3. Input and Output
 
 Input
 
@@ -72,15 +72,15 @@ domain.twdist: topic-word distribution
 domain.twords: top words under each topic. The columns are separated by '\t' where each column corresponds to each topic.
 domain.vocab: mapping from word id (starting from 0) to word.
 
-Efficiency
+4. Efficiency
 
 The program and parameters are set to achieve the best performance in terms of topic coherence quality, instead of efficiency. There are several ways to improve efficiency (from the simplest to the hardest).
 
-Increase the number of threads in the program (specified by -nthreads in file "global/CmdOption.java"). The topic models are execuated in parallel in each domain using multithreading.
-Reduce the frequency of updating knowledge in Gibbs sampling (i.e., knowledgeUpdatelag in the file "model/ModelParameters.java"). The default setting is 1, meaning the knowledge is updated in each Gibbs sampling iteration. Setting this value to any number from 10 to 50 will greatly reduce the execution time while slightly deteriorating the topic quality.
-Use a better implementation for Apriori algorithm or use faster frequent itemset algorithm such as FP-growth.
+a. Increase the number of threads in the program (specified by -nthreads in file "global/CmdOption.java"). The topic models are execuated in parallel in each domain using multithreading.
+b. Reduce the frequency of updating knowledge in Gibbs sampling (i.e., knowledgeUpdatelag in the file "model/ModelParameters.java"). The default setting is 1, meaning the knowledge is updated in each Gibbs sampling iteration. Setting this value to any number from 10 to 50 will greatly reduce the execution time while slightly deteriorating the topic quality.
+c. Use a better implementation for Apriori algorithm or use faster frequent itemset algorithm such as FP-growth.
 
-Contact Information
+5. Contact Information
 
 Author: Zhiyuan (Brett) Chen
 Affiliation: University of Illinois at Chicago
