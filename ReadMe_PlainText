@@ -81,6 +81,7 @@ Reduce the frequency of updating knowledge in Gibbs sampling (i.e., knowledgeUpd
 Use a better implementation for Apriori algorithm or use faster frequent itemset algorithm such as FP-growth.
 
 Contact Information
+
 Author: Zhiyuan (Brett) Chen
 Affiliation: University of Illinois at Chicago
 Research Area: Text Mining, Machine Learning, Statistical Natural Language Processing, and Data Mining
