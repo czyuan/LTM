@@ -1,4 +1,5 @@
 LTM (Lifelong Topic Model)
+
 LTM is an open-source Java package implementing the algorithm proposed in the paper (Chen and Liu, ICML 2014), created by Zhiyuan (Brett) Chen. For more details, please refer to this paper.
 
 If you use this package, please cite the paper: Zhiyuan Chen and Bing Liu. Topic Modeling using Topics from Many Domains, Lifelong Learning and Big Data. In Proceedings of ICML 2014, pages 703-711.
@@ -13,6 +14,7 @@ Efficiency
 Contact Information
 
 Quick Start
+
 First, Clone the repo: git clone https://github.com/czyuan/LTM.git.
 
 Then, 2 quick start options are available:
@@ -26,17 +28,21 @@ Use Maven
 a. Then, change the current working directory to Src.
 
 cd LTM/Src
+
 b. Build the package.
 
 mvn clean package
+
 c. Increase the Java heap memory for Maven.
 
 export MAVEN_OPTS=-Xmx1024m
+
 d. Run the program.
 
 mvn exec:java -Dexec.mainClass="launch.MainEntry"
 
 Commandline Arguments
+
 The commandline arguments are stored in the file "global/CmdOption.java". If no argument is provided, the program uses the default arguments. There are several arguments that are subject to change:
 
 -i: the path of input domains directory.
@@ -45,12 +51,14 @@ The commandline arguments are stored in the file "global/CmdOption.java". If no 
 -nTopics: the number of topics used in Topic Model for each domain.
 
 Input and Output
+
 Input
 
 The input directory should contain domain files. For each domain, there should be 2 files (can be opened by text editors):
 
 domain.docs: each line (representing a document) contains a list of word ids.
 domain.vocab: mapping from word id (starting from 0) to word.
+
 Output
 
 The output directory contains topic model results for each learning iteration (different from Gibbs sampling iteration, see the paper for details). LearningIteration 0 is always LDA, i.e., without any knowledge. LearningIteration i with i > 0 is the LTM model. The knowledge used for LearningIteration i is extracted from LearningIteration i - 1, except LearningIteration 0 which is LDA.
@@ -65,6 +73,7 @@ domain.twords: top words under each topic. The columns are separated by '\t' whe
 domain.vocab: mapping from word id (starting from 0) to word.
 
 Efficiency
+
 The program and parameters are set to achieve the best performance in terms of topic coherence quality, instead of efficiency. There are several ways to improve efficiency (from the simplest to the hardest).
 
 Increase the number of threads in the program (specified by -nthreads in file "global/CmdOption.java"). The topic models are execuated in parallel in each domain using multithreading.
