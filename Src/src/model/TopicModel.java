@@ -44,6 +44,10 @@ public abstract class TopicModel {
 
 	// Get topic word distribution.
 	public abstract double[][] getTopicWordDistribution();
+	
+	// Get document topic distribution.
+	public abstract double[][] getDocumentTopicDistrbution();
+	
 
 	public static TopicModel selectModel(Corpus corpus2, ModelParameters param2) {
 		String modelName = param2.modelName;

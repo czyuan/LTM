@@ -28,6 +28,8 @@ public class ModelPrinter {
 	public static final String modelParamSuffix = ".param";
 	// Suffix for topic word assignment file.
 	public static final String tassignSuffix = ".tassign";
+	// Suffix for document topic distribution.
+	public static final String documentTopicDistSuff = ".dtopic";
 	// Suffix for topic word distribution.
 	public static final String topicWordDistSuff = ".twdist";
 	// Suffix for file containing top words per topic.
@@ -55,6 +57,7 @@ public class ModelPrinter {
 					+ modelParamSuffix);
 			printTopicWordAssignment(model.z, model.corpus, outputDirectory
 					+ domain + tassignSuffix);
+			printDocumentTopicDistribution(model.getDocumentTopicDistrbution(), outputDirectory + domain + documentTopicDistSuff);
 			printTopicWordDistribution(model.getTopicWordDistribution(),
 					outputDirectory + domain + topicWordDistSuff);
 			ArrayList<ArrayList<ItemWithValue>> topWordsUnderTopics = model
@@ -100,6 +103,23 @@ public class ModelPrinter {
 		writer.close();
 	}
 
+	private void printDocumentTopicDistribution(double[][] dist, String filePath) {
+		assert (dist != null && dist.length != 0 && dist[0].length != 0) : "The document topic distribution is not correct!";
+
+		FileOneByOneLineWriter writer = new FileOneByOneLineWriter(filePath);
+
+		int D = dist.length;
+		for (int d = 0; d < D; ++d) {
+			StringBuilder sbLine = new StringBuilder();
+			int T = dist[d].length;
+			for (int t = 0; t < T; ++t) {
+				sbLine.append(dist[d][t] + " ");
+			}
+			writer.writeLine(sbLine.toString().trim());
+		}
+		writer.close();
+	}
+	
 	private void printTopicWordDistribution(double[][] dist, String filePath) {
 		assert (dist != null && dist.length != 0 && dist[0].length != 0) : "The topic word distribution is not correct!";
 

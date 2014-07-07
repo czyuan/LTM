@@ -269,4 +269,9 @@ public class LDA extends TopicModel {
 	public double[][] getTopicWordDistribution() {
 		return phi;
 	}
+
+	@Override
+	public double[][] getDocumentTopicDistrbution() {
+		return theta;
+	}
 }

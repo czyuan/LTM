@@ -31,6 +31,10 @@ public class TopicModelMultiDomainRunningTask {
 		File[] domainFiles = new File(inputCorporeaDirectory).listFiles();
 		for (File domainFile : domainFiles) {
 			String domain = domainFile.getName();
+			if (domain.startsWith(".")) {
+				// Ignore ".DS_Store".
+				continue;
+			}
 			String docsFilepath = domainFile.getAbsolutePath() + File.separator
 					+ domain + suffixInputCorporeaDocs;
 			String vocabFilepath = domainFile.getAbsolutePath()

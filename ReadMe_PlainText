@@ -57,7 +57,7 @@ Input
 The input directory should contain domain files. For each domain, there should be 2 files (can be opened by text editors):
 
 domain.docs: each line (representing a document) contains a list of word ids.
-domain.vocab: mapping from word id (starting from 0) to word.
+domain.vocab: mapping from word id (starting from 0) to word, separated by ":".
 
 Output
 

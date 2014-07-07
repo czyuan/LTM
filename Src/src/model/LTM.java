@@ -483,6 +483,11 @@ public class LTM extends TopicModel {
 	}
 
 	@Override
+	public double[][] getDocumentTopicDistrbution() {
+		return theta;
+	}
+	
+	@Override
 	/**
 	 * Print out the must-links for each topic.
 	 */

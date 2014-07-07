@@ -59,7 +59,7 @@ The commandline arguments are stored in the file "global/CmdOption.java". If no 
 The input directory should contain domain files. For each domain, there should be 2 files (can be opened by text editors):
 
 1. domain.docs: each line (representing a document) contains a list of word ids.
-2. domain.vocab: mapping from word id (starting from 0) to word.
+2. domain.vocab: mapping from word id (starting from 0) to word, separated by ":".
 
 ### Output
 The output directory contains topic model results for each learning iteration (different from Gibbs sampling iteration, see [the paper](http://www.cs.uic.edu/~zchen/papers/ICML2014-Zhiyuan(Brett)Chen.pdf) for details). LearningIteration 0 is always LDA, i.e., without any knowledge. LearningIteration i with i > 0 is the LTM model. The knowledge used for LearningIteration i is extracted from LearningIteration i - 1, except LearningIteration 0 which is LDA.
