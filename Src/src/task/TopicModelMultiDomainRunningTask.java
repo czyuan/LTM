@@ -30,18 +30,17 @@ public class TopicModelMultiDomainRunningTask {
 		ArrayList<Corpus> corpora = new ArrayList<Corpus>();
 		File[] domainFiles = new File(inputCorporeaDirectory).listFiles();
 		for (File domainFile : domainFiles) {
-			String domain = domainFile.getName();
-			if (domain.startsWith(".")) {
-				// Ignore ".DS_Store".
-				continue;
+			if (domainFile.isDirectory()) {
+				// Only consider folders.
+				String domain = domainFile.getName();
+				String docsFilepath = domainFile.getAbsolutePath() + File.separator
+						+ domain + suffixInputCorporeaDocs;
+				String vocabFilepath = domainFile.getAbsolutePath()
+						+ File.separator + domain + suffixInputCorporeaVocab;
+				Corpus corpus = Corpus.getCorpusFromFile(domain, docsFilepath,
+						vocabFilepath);
+				corpora.add(corpus);
 			}
-			String docsFilepath = domainFile.getAbsolutePath() + File.separator
-					+ domain + suffixInputCorporeaDocs;
-			String vocabFilepath = domainFile.getAbsolutePath()
-					+ File.separator + domain + suffixInputCorporeaVocab;
-			Corpus corpus = Corpus.getCorpusFromFile(domain, docsFilepath,
-					vocabFilepath);
-			corpora.add(corpus);
 		}
 		return corpora;
 	}
@@ -129,6 +128,7 @@ public class TopicModelMultiDomainRunningTask {
 
 		for (Corpus corpus : corpora) {
 			String currentIterationModelDirectory = currentIterationRootDirectory
+					+ File.separator
 					+ "DomainModels"
 					+ File.separator
 					+ corpus.domain
