@@ -42,11 +42,19 @@ public class Corpus {
 		// Read the docs file.
 		ArrayList<String> docsLines = FileReaderAndWriter
 				.readFileAllLines(docsFilepath);
-		int size = docsLines.size();
+		// Ignore the empty line.
+		ArrayList<String> docsLines_nonEmpty = new ArrayList<String>();
+		for (String line : docsLines) {
+			if (line.trim().length() > 0) {
+				docsLines_nonEmpty.add(line);
+			}
+		}
+				
+		int size = docsLines_nonEmpty.size();
 		corpus.docs = new int[size][];
 		corpus.docsStr = new String[size][];
 		for (int d = 0; d < size; ++d) {
-			String docsLine = docsLines.get(d);
+			String docsLine = docsLines_nonEmpty.get(d);
 			String[] splits = docsLine.trim().split(" ");
 			int length = splits.length;
 			corpus.docs[d] = new int[length];
