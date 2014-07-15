@@ -100,24 +100,15 @@ public class Corpus {
 	 * Get the co-document frequency which is the number of documents that both
 	 * words appear.
 	 */
-	// Since this function is slow and called very often, to improve the efficiency, we store
-	// the results for future lookup.
-	Map<String, Integer> mapWordStrsToCoDoFreq = new HashMap<String, Integer>(); 
 	public int getCoDocumentFrequency(String wordstr1, String wordstr2) {
 		if (!wordstrToSetOfDocsMap.containsKey(wordstr1)
 				|| !wordstrToSetOfDocsMap.containsKey(wordstr2)) {
 			return 0;
 		}
-		String key = wordstr1 + " " + wordstr2;
-		// Try to lookup if it is calculated before.
-		if (mapWordStrsToCoDoFreq.containsKey(key)) {
-			return mapWordStrsToCoDoFreq.get(key);
-		}
 		HashSet<Integer> setOfDocs1 = wordstrToSetOfDocsMap.get(wordstr1);
 		HashSet<Integer> setOfDocs2 = wordstrToSetOfDocsMap.get(wordstr2);
 		HashSet<Integer> intersection = new HashSet<Integer>(setOfDocs1);
 		intersection.retainAll(setOfDocs2);
-		mapWordStrsToCoDoFreq.put(key, intersection.size());
 		return intersection.size();
 	}
 }
