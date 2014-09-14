@@ -127,7 +127,7 @@ public class LTM extends TopicModel {
 
 	/**
 	 * Allocate memory for temporary variables and initialize their values. Note
-	 * that z[][] and y[][] are not created in this function, but in the
+	 * that z[][] are not created in this function, but in the
 	 * function initializeFirstMarkovChainRandomly().
 	 * 
 	 * We Allocate gamma, eta, etasum, ntsw specifically to save the memory. For
