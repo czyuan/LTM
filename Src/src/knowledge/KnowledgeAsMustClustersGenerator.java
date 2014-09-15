@@ -66,9 +66,9 @@ public class KnowledgeAsMustClustersGenerator {
 			Cluster topicCluster = topicClusters.clusterList.get(i);
 			// Construct transactions.
 			Transactions transactions = new Transactions(topicCluster);
-			Apriori aprioir = new Apriori(transactions, param.minimumSupport,
+			Apriori apriori = new Apriori(transactions, param.minimumSupport,
 					param.minimumSupportPercentage);
-			ArrayList<ArrayList<String>> freqItemSetList = aprioir
+			ArrayList<ArrayList<String>> freqItemSetList = apriori
 					.runToSizeK(MAXIMUM_ITEMSET_SIZE);
 
 			MustLinks mustlinks = new MustLinks();

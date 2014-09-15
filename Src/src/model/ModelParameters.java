@@ -37,7 +37,7 @@ public class ModelParameters {
 	/******************* Hyperparameters *********************/
 	public double alpha = 1.0;
 	public double beta = 0.1;
-	// The coefficient randa for computing hyperparamter randaGamma
+	// The coefficient lambda for computing hyperparamter randaGamma
 	public double lambdaForComputingGamma = 2000.0;
 
 	// Random seed.

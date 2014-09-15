@@ -162,7 +162,7 @@ public abstract class TopicModel {
 
 	/**
 	 * Print out the knowledge. For non knowledge-based topic models, this
-	 * function does nothing. For knowledge-based topic models, print the out
+	 * function does nothing. For knowledge-based topic models, print out
 	 * the knowledge according to their specific formats.
 	 */
 	public void printKnowledge(String filepath) {
