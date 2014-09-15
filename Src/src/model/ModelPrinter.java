@@ -29,7 +29,7 @@ public class ModelPrinter {
 	// Suffix for topic word assignment file.
 	public static final String tassignSuffix = ".tassign";
 	// Suffix for document topic distribution.
-	public static final String documentTopicDistSuff = ".dtopic";
+	public static final String documentTopicDistSuff = ".dtopicdist";
 	// Suffix for topic word distribution.
 	public static final String topicWordDistSuff = ".twdist";
 	// Suffix for file containing top words per topic.
