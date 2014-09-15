@@ -12,7 +12,9 @@ import java.util.ArrayList;
  * @email czyuanacm@gmail.com
  */
 public class Apriori {
-	private Transactions transactions = null;
+	private Transactions transactions = null; // The items in each transaction
+												// have been sorted in a certain
+												// order (e.g., alphabetically).
 	private int minSup = 0; // Minimum support.
 
 	public Apriori(Transactions transactions2, int minSup2, double minSupPer) {
