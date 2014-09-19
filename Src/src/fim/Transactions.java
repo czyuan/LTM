@@ -2,7 +2,8 @@ package fim;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 
 import topicclustering.Cluster;
 import topicclustering.ClusterObject;
@@ -15,11 +16,11 @@ import utility.ItemWithValue;
  */
 public class Transactions {
 	private ArrayList<ArrayList<String>> transactionList = null;
-	private HashSet<String> itemSet = null;
+	public Map<String, Integer> mpItemToCount = null;
 
 	public Transactions() {
 		transactionList = new ArrayList<ArrayList<String>>();
-		itemSet = new HashSet<String>();
+		mpItemToCount = new HashMap<String, Integer>();
 	}
 
 	/**
@@ -28,7 +29,7 @@ public class Transactions {
 	 */
 	public Transactions(Cluster topicCluster) {
 		transactionList = new ArrayList<ArrayList<String>>();
-		itemSet = new HashSet<String>();
+		mpItemToCount = new HashMap<String, Integer>();
 
 		for (ClusterObject co : topicCluster) {
 			ArrayList<String> transaction = new ArrayList<String>();
@@ -42,28 +43,14 @@ public class Transactions {
 		}
 	}
 
-	public void addTransactions(ArrayList<ArrayList<String>> transactions) {
-		transactionList.addAll(transactions);
-		for (ArrayList<String> transaction : transactions) {
-			addIntoItemSet(transaction);
-		}
-	}
-
 	public void addTransaction(ArrayList<String> transaction) {
 		transactionList.add(transaction);
-		addIntoItemSet(transaction);
-	}
-
-	private void addIntoItemSet(ArrayList<String> transaction) {
 		for (String item : transaction) {
-			itemSet.add(item);
+			if (!mpItemToCount.containsKey(item)) {
+				mpItemToCount.put(item, 0);
+			}
+			mpItemToCount.put(item, mpItemToCount.get(item) + 1);
 		}
-	}
-
-	public ArrayList<String> getSortedItemList() {
-		ArrayList<String> list = new ArrayList<String>(itemSet);
-		Collections.sort(list);
-		return list;
 	}
 
 	public int size() {

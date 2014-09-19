@@ -1,6 +1,9 @@
 package fim;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Map.Entry;
 
 /**
  * This class implements the basic Apriori algorithm. This is a simple
@@ -26,90 +29,130 @@ public class Apriori {
 	/**
 	 * Run Apriori algorithm, return the frequent item sets.
 	 */
-	public ArrayList<ArrayList<String>> runToSizeK(int K) {
-		ArrayList<ArrayList<String>> Cks = new ArrayList<ArrayList<String>>(); // Candidates.
-		ArrayList<ArrayList<String>> Fks = new ArrayList<ArrayList<String>>(); // Frequents.
-		int k = 1;
+	public ArrayList<ItemSet> runToSizeK(int K) {
 		// Create F1, i.e., frequent item set with 1 item only.
-		for (String item : transactions.getSortedItemList()) {
-			ArrayList<String> Ck = new ArrayList<String>();
-			Ck.add(item);
-			if (transactions.getFrequency(Ck) >= minSup) {
-				Fks.add(Ck);
+		ArrayList<String> frequent1 = new ArrayList<String>();
+		for (Entry<String, Integer> entry : transactions.mpItemToCount
+				.entrySet()) {
+			String item = entry.getKey();
+			int support = entry.getValue();
+			if (support >= minSup) {
+				frequent1.add(item);
+			}
+		}
+		// We sort the list of candidates by lexical order because Apriori needs
+		// a total in order to work correctly.
+		Collections.sort(frequent1, new Comparator<String>() {
+			public int compare(String s1, String s2) {
+				return s1.compareTo(s2);
+			}
+		});
+
+		if (frequent1.size() == 0) {
+			return new ArrayList<ItemSet> (); // No frequent patterns found.
+		}
+
+		ArrayList<ItemSet> frequents = null;
+		for (int k = 2; k <= K; ++k) {
+			ArrayList<ItemSet> candidates = null;
+			if (k == 2) {
+				candidates = generateCandidateOfSize2(frequent1);
+			} else {
+				candidates = generateCandidateOfSizeK(frequents);
+			}
+			frequents = pruneCandiatesBySupport(candidates);
+			if (frequents.size() == 0) {
+				break;
 			}
 		}
 
-		for (k = 2; k <= K && !Fks.isEmpty(); ++k) {
-			// Candidate generation.
-			Cks = generateCandidate(Fks);
-			// Pruning.
-			Fks = pruneFrequentItemSet(Cks);
+		return frequents;
+	}
+
+	/**
+	 * Generate candidates from F1 (i.e., frequent item set with 1 item only).
+	 */
+	private ArrayList<ItemSet> generateCandidateOfSize2(
+			ArrayList<String> frequent1) {
+		ArrayList<ItemSet> candidates = new ArrayList<ItemSet>();
+		for (int i = 0; i < frequent1.size(); ++i) {
+			String item1 = frequent1.get(i);
+			for (int j = i + 1; j < frequent1.size(); ++j) {
+				String item2 = frequent1.get(j);
+				ArrayList<String> items = new ArrayList<String>();
+				items.add(item1);
+				items.add(item2);
+				candidates.add(new ItemSet(items));
+			}
 		}
-		return Fks;
+		// No need to check the subsets of candidates.
+		return candidates;
 	}
 
 	/**
 	 * Generate candidates Cks from Fks (which is F_{k-1}).
 	 */
-	private ArrayList<ArrayList<String>> generateCandidate(
-			ArrayList<ArrayList<String>> Fks) {
-		ArrayList<ArrayList<String>> Cks = new ArrayList<ArrayList<String>>();
-		for (int i = 0; i < Fks.size(); ++i) {
-			ArrayList<String> Fk_i = Fks.get(i);
-			for (int j = i + 1; j < Fks.size(); ++j) {
-				ArrayList<String> Fk_j = Fks.get(j);
-				if (sharePrefixKMinus1(Fk_i, Fk_j)) {
-					ArrayList<String> Ck = mergePrefix(Fk_i, Fk_j);
-					Cks.add(Ck);
+	private ArrayList<ItemSet> generateCandidateOfSizeK(
+			ArrayList<ItemSet> frequents) {
+		ArrayList<ItemSet> candidates = new ArrayList<ItemSet>();
+		for (int i = 0; i < frequents.size(); ++i) {
+			ItemSet fk_i = frequents.get(i);
+			for (int j = i + 1; j < frequents.size(); ++j) {
+				ItemSet fk_j = frequents.get(j);
+				if (fk_i.sharesPrefixExceptLastOne(fk_j)) {
+					ItemSet candidate = fk_i.getPrefixMergedItemSet(fk_j);
+					if (checkAllSubsetsAreFrequent(candidate, frequents)) {
+						candidates.add(candidate);
+					}
 				}
 			}
 		}
-		return Cks;
+		return candidates;
 	}
 
 	/**
-	 * Judge if fk_i and fk_j share the same except the last item.
+	 * Check if all subsets of candidate are in frequents. Since frequents are
+	 * sorted, we can use binary search here.
 	 */
-	private boolean sharePrefixKMinus1(ArrayList<String> Fk_i,
-			ArrayList<String> Fk_j) {
-		int len = Fk_i.size();
-		for (int i = 0; i < len - 1; ++i) {
-			if (Fk_i.get(i).compareTo(Fk_j.get(i)) != 0) {
+	private boolean checkAllSubsetsAreFrequent(ItemSet candidate,
+			ArrayList<ItemSet> frequents) {
+		for (int removePosition = 0; removePosition < candidate.size(); ++removePosition) {
+			// Check the subset of candidate (remove the item in
+			// removePosition).
+
+			int left = 0;
+			int right = frequents.size();
+			boolean found = false;
+			while (left <= right) {
+				int mid = (left + right) >> 1;
+				int compareValue = candidate.compareToExcludingIndex(
+						frequents.get(mid), removePosition);
+				if (compareValue < 0) {
+					right = mid - 1;
+				} else if (compareValue > 0) {
+					left = mid + 1;
+				} else {
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				// This subset is not in the frequents, so this candidate is
+				// not valid.
 				return false;
 			}
 		}
 		return true;
 	}
 
-	/**
-	 * Create a new candidate by merge two frequent item sets that share the
-	 * prefix.
-	 */
-	private ArrayList<String> mergePrefix(ArrayList<String> Fk_i,
-			ArrayList<String> Fk_j) {
-		ArrayList<String> Ck = new ArrayList<String>();
-		int len = Fk_i.size();
-		for (int i = 0; i < len - 1; ++i) {
-			Ck.add(Fk_i.get(i));
-		}
-		if (Fk_i.get(len - 1).compareTo(Fk_j.get(len - 1)) < 0) {
-			Ck.add(Fk_i.get(len - 1));
-			Ck.add(Fk_j.get(len - 1));
-		} else {
-			Ck.add(Fk_j.get(len - 1));
-			Ck.add(Fk_i.get(len - 1));
-		}
-		return Ck;
-	}
-
-	private ArrayList<ArrayList<String>> pruneFrequentItemSet(
-			ArrayList<ArrayList<String>> Cks) {
-		ArrayList<ArrayList<String>> Fks = new ArrayList<ArrayList<String>>();
-		for (ArrayList<String> Ck : Cks) {
-			if (transactions.getFrequency(Ck) >= minSup) {
-				Fks.add(Ck);
+	private ArrayList<ItemSet> pruneCandiatesBySupport(
+			ArrayList<ItemSet> candidates) {
+		ArrayList<ItemSet> frequents = new ArrayList<ItemSet>();
+		for (ItemSet candidate : candidates) {
+			if (transactions.getFrequency(candidate.items) >= minSup) {
+				frequents.add(candidate);
 			}
 		}
-		return Fks;
+		return frequents;
 	}
 }

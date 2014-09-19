@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 import fim.Apriori;
+import fim.ItemSet;
 import fim.Transactions;
 import nlp.Topic;
 import nlp.Topics;
@@ -68,13 +69,13 @@ public class KnowledgeAsMustClustersGenerator {
 			Transactions transactions = new Transactions(topicCluster);
 			Apriori apriori = new Apriori(transactions, param.minimumSupport,
 					param.minimumSupportPercentage);
-			ArrayList<ArrayList<String>> freqItemSetList = apriori
+			ArrayList<ItemSet> freqItemSetList = apriori
 					.runToSizeK(MAXIMUM_ITEMSET_SIZE);
 
 			MustLinks mustlinks = new MustLinks();
 			if (!freqItemSetList.isEmpty()) {
 				// Add into the knowledge mustlinks.
-				for (ArrayList<String> freqItemSet : freqItemSetList) {
+				for (ItemSet freqItemSet : freqItemSetList) {
 					assert (freqItemSet.size() == 2) : "The size of frequent item set should be 2!";
 					String wordstr1 = freqItemSet.get(0);
 					String wordstr2 = freqItemSet.get(1);
