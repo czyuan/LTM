@@ -36,9 +36,6 @@ public class Transactions {
 			for (ItemWithValue iwv : co.topic.topWordList) {
 				transaction.add(iwv.getIterm().toString());
 			}
-			// We need to sort the items alphabetically so that we only have (A,
-			// B) instead of counting both (A, B) and (B, A).
-			Collections.sort(transaction);
 			this.addTransaction(transaction);
 		}
 	}
