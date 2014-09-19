@@ -1,6 +1,7 @@
 package fim;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import utility.ItemWithValue;
  * The transactions for frequent itemset mining.
  * 
  * Each transaction is a list of word string that ranks on the top of a topic.
+ * The items in each transaction is sorted lexically.
  */
 public class Transactions {
 	private ArrayList<ArrayList<String>> transactionList = null;
@@ -35,6 +37,9 @@ public class Transactions {
 			for (ItemWithValue iwv : co.topic.topWordList) {
 				transaction.add(iwv.getIterm().toString());
 			}
+			// We need to sort the transaction in order to have a more efficient
+			// itemset look up algorithm.
+			Collections.sort(transaction);
 			this.addTransaction(transaction);
 		}
 	}
