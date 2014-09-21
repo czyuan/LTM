@@ -63,9 +63,11 @@ Output
 
 The output directory contains topic model results for each learning iteration (different from Gibbs sampling iteration, see the paper for details). LearningIteration 0 is always LDA, i.e., without any knowledge. LearningIteration i with i > 0 is the LTM model. The knowledge used for LearningIteration i is extracted from LearningIteration i - 1, except LearningIteration 0 which is LDA.
 
-Under each learning iteration folder and sub-folder "DomainModels", there are a list of domain folders where each domain folder contains topic model results for each domain. Under each domain folder, there are 6 files (can be opened by text editors):
+Under each learning iteration folder and sub-folder "DomainModels", there are a list of domain folders where each domain folder contains topic model results for each domain. Under each domain folder, there are 8 files (can be opened by text editors):
 
 domain.docs: each line (representing a document) contains a list of word ids.
+domain.dtopicdist: topic-word distribution.
+domain.knowl: record the knowledge (for LTM only).
 domain.param: parameter settings.
 domain.tassign: topic assignment for each word in each document.
 domain.twdist: topic-word distribution
