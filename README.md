@@ -64,14 +64,16 @@ The input directory should contain domain files. For each domain, there should b
 ### Output
 The output directory contains topic model results for each learning iteration (different from Gibbs sampling iteration, see [the paper](http://www.cs.uic.edu/~zchen/papers/ICML2014-Zhiyuan(Brett)Chen.pdf) for details). LearningIteration 0 is always LDA, i.e., without any knowledge. LearningIteration i with i > 0 is the LTM model. The knowledge used for LearningIteration i is extracted from LearningIteration i - 1, except LearningIteration 0 which is LDA.
 
-Under each learning iteration folder and sub-folder "DomainModels", there are a list of domain folders where each domain folder contains topic model results for each domain. Under each domain folder, there are 6 files (can be opened by text editors):
+Under each learning iteration folder and sub-folder "DomainModels", there are a list of domain folders where each domain folder contains topic model results for each domain. Under each domain folder, there are 8 files (can be opened by text editors):
 
 1. domain.docs: each line (representing a document) contains a list of word ids.
-2. domain.param: parameter settings.
-3. domain.tassign: topic assignment for each word in each document.
-4. domain.twdist: topic-word distribution
-5. domain.twords: top words under each topic. The columns are separated by '\t' where each column corresponds to each topic.
-6. domain.vocab: mapping from word id (starting from 0) to word.
+2. domain.dtopicdist: topic-word distribution.
+3. domain.knowl: record the knowledge (for LTM only).
+4. domain.param: parameter settings.
+5. domain.tassign: topic assignment for each word in each document.
+6. domain.twdist: topic-word distribution
+7. domain.twords: top words under each topic. The columns are separated by '\t' where each column corresponds to each topic.
+8. domain.vocab: mapping from word id (starting from 0) to word.
 
 <a name="efficiency"/>
 ## Efficiency
