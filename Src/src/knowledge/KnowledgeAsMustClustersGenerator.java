@@ -77,8 +77,10 @@ public class KnowledgeAsMustClustersGenerator {
 				// Add into the knowledge mustlinks.
 				for (ItemSet freqItemSet : freqItemSetList) {
 					assert (freqItemSet.size() == 2) : "The size of frequent item set should be 2!";
-					String wordstr1 = freqItemSet.get(0);
-					String wordstr2 = freqItemSet.get(1);
+					String wordstr1 = transactions.mpItemToWord.get(freqItemSet
+							.get(0));
+					String wordstr2 = transactions.mpItemToWord.get(freqItemSet
+							.get(1));
 					MustLink mustlink = new MustLink(wordstr1, wordstr2);
 					mustlinks.addMustLink(mustlink);
 				}

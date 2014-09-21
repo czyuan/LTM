@@ -13,15 +13,18 @@ import utility.ItemWithValue;
  * The transactions for frequent itemset mining.
  * 
  * Each transaction is a list of word string that ranks on the top of a topic.
- * The items in each transaction is sorted lexically.
  */
 public class Transactions {
-	private ArrayList<ArrayList<String>> transactionList = null;
-	public Map<String, Integer> mpItemToCount = null;
+	public ArrayList<ArrayList<Integer>> transactionList = null;
+	public Map<String, Integer> mpWordToItem = null;
+	public Map<Integer, String> mpItemToWord = null;
+	public Map<Integer, Integer> mpItemToCount = null;
 
 	public Transactions() {
-		transactionList = new ArrayList<ArrayList<String>>();
-		mpItemToCount = new HashMap<String, Integer>();
+		transactionList = new ArrayList<ArrayList<Integer>>();
+		mpWordToItem = new HashMap<String, Integer>();
+		mpItemToWord = new HashMap<Integer, String>();
+		mpItemToCount = new HashMap<Integer, Integer>();
 	}
 
 	/**
@@ -29,13 +32,23 @@ public class Transactions {
 	 * transaction is a list of top words in a cluster-object.
 	 */
 	public Transactions(Cluster topicCluster) {
-		transactionList = new ArrayList<ArrayList<String>>();
-		mpItemToCount = new HashMap<String, Integer>();
+		transactionList = new ArrayList<ArrayList<Integer>>();
+		mpWordToItem = new HashMap<String, Integer>();
+		mpItemToWord = new HashMap<Integer, String>();
+		mpItemToCount = new HashMap<Integer, Integer>();
 
 		for (ClusterObject co : topicCluster) {
-			ArrayList<String> transaction = new ArrayList<String>();
+			ArrayList<Integer> transaction = new ArrayList<Integer>();
 			for (ItemWithValue iwv : co.topic.topWordList) {
-				transaction.add(iwv.getIterm().toString());
+				String word = iwv.getIterm().toString();
+				if (!mpWordToItem.containsKey(word)) {
+					mpWordToItem.put(word, mpWordToItem.size());
+				}
+				int id = mpWordToItem.get(word);
+				if (!mpItemToWord.containsKey(id)) {
+					mpItemToWord.put(id, word);
+				}
+				transaction.add(id);
 			}
 			// We need to sort the transaction in order to have a more efficient
 			// itemset look up algorithm.
@@ -44,13 +57,13 @@ public class Transactions {
 		}
 	}
 
-	public void addTransaction(ArrayList<String> transaction) {
+	public void addTransaction(ArrayList<Integer> transaction) {
 		transactionList.add(transaction);
-		for (String item : transaction) {
-			if (!mpItemToCount.containsKey(item)) {
-				mpItemToCount.put(item, 0);
+		for (int id : transaction) {
+			if (!mpItemToCount.containsKey(id)) {
+				mpItemToCount.put(id, 0);
 			}
-			mpItemToCount.put(item, mpItemToCount.get(item) + 1);
+			mpItemToCount.put(id, mpItemToCount.get(id) + 1);
 		}
 	}
 
@@ -58,46 +71,13 @@ public class Transactions {
 		return transactionList.size();
 	}
 
-	/**
-	 * Very simple implementation. For each transaction, check if it contains
-	 * all the items in the list.
-	 */
-	public int getFrequency(ArrayList<String> itemList) {
-		int count = 0;
-		for (ArrayList<String> transaction : transactionList) {
-			if (transactionContainsItemSet(transaction, itemList)) {
-				++count;
-			}
-		}
-		return count;
-	}
-
-	/**
-	 * O(n) algorithm to compare as both list are sorted already.
-	 */
-	private boolean transactionContainsItemSet(ArrayList<String> transaction,
-			ArrayList<String> itemList) {
-		int i = 0;
-		int j = 0;
-		for (; i < transaction.size() && j < itemList.size();) {
-			if (transaction.get(i).compareTo(itemList.get(j)) == 0) {
-				++i;
-				++j;
-			} else if (transaction.get(i).compareTo(itemList.get(j)) < 0) {
-				++i;
-			} else {
-				return false;
-			}
-		}
-		return j == itemList.size();
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder sbTransactions = new StringBuilder();
-		for (ArrayList<String> transaction : transactionList) {
+		for (ArrayList<Integer> transaction : transactionList) {
 			StringBuilder sbLine = new StringBuilder();
-			for (String word : transaction) {
+			for (int id : transaction) {
+				String word = mpItemToWord.get(id);
 				sbLine.append(word);
 				sbLine.append(' ');
 			}
