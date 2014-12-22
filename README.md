@@ -58,7 +58,7 @@ The commandline arguments are stored in the file "global/CmdOption.java". If no 
 ### Input
 The input directory should contain domain files. For each domain, there should be 2 files (can be opened by text editors):
 
-1. domain.docs: each line (representing a document) contains a list of word ids.
+1. domain.docs: each line (representing a document) contains a list of word ids. Here, a document is a sentence in a review after preprocessing.
 2. domain.vocab: mapping from word id (starting from 0) to word, separated by ":".
 
 ### Output
