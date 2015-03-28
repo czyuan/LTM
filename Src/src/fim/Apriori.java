@@ -112,7 +112,7 @@ public class Apriori {
 			// Check the subset of candidate (remove the item in
 			// removePosition).
 			int left = 0;
-			int right = frequents.size();
+			int right = frequents.size() - 1;
 			boolean found = false;
 			while (left <= right) {
 				int mid = (left + right) >> 1;

@@ -59,7 +59,7 @@ public class ItemSet {
 	 */
 	public int compareToExcludingIndex(ItemSet itemSet, int ignorePosition) {
 		for (int i = 0; i < this.size(); ++i) {
-			if (i > itemSet.size()) {
+			if (i >= itemSet.size()) {
 				return 1;
 			}
 			if (i == ignorePosition) {
